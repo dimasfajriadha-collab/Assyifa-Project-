@@ -1,2 +1,4 @@
-# Assyifa-Project-
-Asy-Syifa — Hafalan Qur'an &amp; Murojaah Forum Dai Wasathiyah Indonesia Projct
+# Assyifa
+Quran Digital Hafalan
+dengan audio offline dan online Hafalan Qur'an &amp; 
+Murojaah Forum Dai Wasathiyah Indonesia Projct
