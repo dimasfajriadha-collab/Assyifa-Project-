@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123d32">
+<title>Asy-Syifa | Hafalan & Murojaah Forum Dawai</title>
+<style>
+:root{--green:#123d32;--green2:#1c5948;--cream:#f7f4e9;--paper:#fffdf7;--gold:#d7b86a;--ink:#182b25;--muted:#6b776f;--line:#e5e2d6}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:var(--green);color:white;padding:18px 17px 20px;border-radius:0 0 22px 22px;text-align:center}
+.brandLogo{display:block;width:112px;height:112px;object-fit:contain;border-radius:14px;background:#fffdf7;margin:0 auto 12px}
+h1{font-size:23px;margin:0 0 5px;letter-spacing:.3px}header p{margin:0;color:#dbe8df;font-size:13px;line-height:1.5}.brandLinks{margin-top:9px;font-size:11px;line-height:1.7;color:#dbe8df}.brandLinks a{color:#fff;text-decoration:none;border-bottom:1px solid #8eafa0}
+main{max-width:760px;margin:auto;padding:15px 13px 36px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:13px;box-shadow:0 3px 14px #193c2c0a}
+label{font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:6px}
+select,input,button{font:inherit}select,input[type=text],input[type=number]{width:100%;border:1px solid #d8ddd4;border-radius:10px;padding:10px;background:#fff;color:var(--ink)}
+.row{display:flex;gap:9px;align-items:end}.row>*{flex:1;min-width:0}
+button{border:0;border-radius:10px;background:var(--green2);color:white;padding:10px 12px;font-weight:650;cursor:pointer}
+button.secondary{background:#e8eee7;color:var(--green)}button.small{padding:7px 9px;font-size:12px}
+#status{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45}
+.progress{height:7px;background:#e4e8df;border-radius:99px;overflow:hidden;margin-top:8px}.progress span{height:100%;display:block;background:#4c8b65;width:0}
+.ayah{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:14px;margin:11px 0}.ayah:not(.active){display:none}
+.verseNav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0}.verseNav button{flex:1;min-height:46px}.verseCounter{font-size:12px;font-weight:750;color:var(--green);text-align:center;min-width:90px}.verseHint{font-size:11px;color:var(--muted);text-align:center;margin-top:5px}
+.ayahhead{display:flex;justify-content:space-between;align-items:center;gap:8px}.num{font-size:12px;font-weight:800;color:var(--green);background:#e8eee7;padding:6px 9px;border-radius:8px}
+.check{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}.check input{accent-color:var(--green)}
+.modeCheck{display:flex;align-items:center;gap:9px;margin:13px 0 8px;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#f5f8f3;color:var(--green);font-size:13px}.modeCheck input{width:18px;height:18px;accent-color:var(--green)}.modeOptions{padding:10px 0 0}.modeOptions[hidden],#offlineOptions[hidden]{display:none}.timegrid[hidden],.timeTools[hidden],.saveTimesRow[hidden]{display:none!important}.timegrid{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}.saveTimesRow{margin-top:8px}
+.arabic{font-family:"Noto Naskh Arabic","Amiri","Traditional Arabic",serif;font-size:29px;line-height:2;text-align:right;direction:rtl;margin:14px 0;white-space:normal}
+.translit{font-size:14px;line-height:1.7;color:#365d4d;margin:10px 0}.versePlay{margin:0 0 10px;width:100%;min-height:40px}.translation{font-size:14px;line-height:1.65;margin:8px 0 12px}
+.tiny{font-size:11px;color:var(--muted);line-height:1.5}.ayahactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.timegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.timegrid input{min-width:0}
+.hiddenText .arabic,.hiddenText .translit,.hiddenText .translation{filter:blur(7px);user-select:none}
+footer{text-align:center;font-size:11px;color:var(--muted);padding:15px}
+@media(min-width:600px){main{padding-top:20px}.ayah{padding:18px}.arabic{font-size:34px}}
+.row{flex-wrap:wrap}.row>*{min-width:130px}.ayahactions button{min-height:38px}.translation{white-space:pre-wrap}.check{margin:0;display:flex;align-items:center}.check input{width:auto}button:disabled{cursor:not-allowed}
+@media(max-width:420px){.row{gap:7px}.row>*{min-width:100px}.arabic{font-size:27px}.verseCounter{min-width:55px}}
+</style>
+<style>
+
+/* Layout ringkas Asy-Syifa */
+header{padding:12px 15px 14px;border-radius:0 0 18px 18px}
+.brandLogo{width:66px;height:66px;margin:0 auto 7px}
+h1{font-size:21px}
+.brandLinks{font-size:10px;margin-top:6px}
+main{padding:10px 10px 24px}
+.panel{padding:12px;border-radius:14px;margin-bottom:9px;box-shadow:none}
+.advanced{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.advanced summary{font-size:13px;font-weight:700;color:var(--green);cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;padding:5px 1px}
+.advanced summary::-webkit-details-marker{display:none}
+.advanced summary:after{content:"＋";font-size:18px;font-weight:500}
+.advanced[open] summary:after{content:"−"}
+.advancedContent{padding-top:10px}
+#progressText{margin-top:7px}
+#status{padding:8px 10px;background:#f0f4ee;border-radius:9px}
+.ayah{padding:12px;border-radius:13px}
+.arabic{font-size:30px;line-height:1.9;margin:10px 0}
+.verseNav button{font-size:12px;padding:10px 7px}
+.verseHint{font-size:10px}
+.donation-box{margin:16px 0 10px;padding:14px 12px}
+footer:not(.donation-box){font-size:10px;line-height:1.5}
+@media(max-width:420px){.brandLogo{width:58px;height:58px}.row>*{min-width:0}.arabic{font-size:27px}.panel{padding:11px}}
+</style>\n</head>
+<body>
+<header>
+  <img class="brandLogo" src="https://instagram.fcgk3-2.fna.fbcdn.net/v/t51.82787-15/856316220_17956627362257150_7755656605176464855_n.webp?_nc_cat=102&_nc_map=urlgen_bucketless&ig_cache_key=NDAxMjEwMTQ1MzkxNzM4Njk4OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuOTQwLnNkci5yZWd1bGFyX3Bob3RvLkMzIn0%3D&_nc_ohc=gHV5Yyny5TgQ7kNvwHiwPa8&_nc_oc=AdrmzC1s9qbhyR40S9CTz2Q2TBTG9BdjtdiYoC4bBMiqbJOcaMqT3RojV4DKSZVryBTga7mrJoTmh6J8eoaGxaWn&_nc_zt=23&_nc_ht=instagram.fcgk3-2.fna&_nc_gid=l_BBogLdqK2h324AV0Eu2Q&_nc_ss=7b289&oh=00_AQNaJNEYvGd5xrwZM9ftXHxW-i6tuCYt9UgcObQOr4daGQ&oe=6ADD3A62" alt="Logo Forum Dawai dan Dai Wasathiyah" loading="eager" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+  <h1>Asy-Syifa</h1>
+  <p>Forum Dawai · Dai Wasathiyah</p>
+  <p>Sahabat hafalan dan murojaah Al-Qur’an</p>
+  <div class="brandLinks"><a href="https://lynk.id/forumdawai" target="_blank" rel="noopener">lynk.id/forumdawai</a> · <a href="https://www.daiwasthiyah.com" target="_blank" rel="noopener">www.daiwasthiyah.com</a><br>Threads @abuhaniffajri · WhatsApp 0818202885</div>
+</header>
+<main>
+<section class="panel">
+  <div class="row">
+    <div><label for="juz">Pilih juz (1–30)</label><select id="juz"></select></div>
+    <div><label for="surah">Pilih surah</label><select id="surah"></select></div>
+  </div>
+  <div class="row" style="margin-top:9px"><button id="load">Muat surah</button><button class="secondary" id="showText">Sembunyikan teks</button></div>
+  <details class="advanced">
+    <summary>Pengaturan teks dan audio</summary>
+    <div class="advancedContent">
+      <label for="textMode">Terjemahan / tafsir</label><select id="textMode"><option value="translation">Terjemahan Indonesia</option><option value="kemenagShort">Tafsir Kemenag ringkas (jika tersedia)</option><option value="kemenagLong">Tafsir Kemenag tahlili (jika tersedia)</option><option value="quraish">Tafsir M. Quraish Shihab (jika tersedia)</option><option value="jalalayn">Tafsir Al-Jalalayn (jika tersedia)</option></select>
+      <label class="modeCheck"><input type="checkbox" id="useOnline"> Gunakan audio online</label>
+      <label class="modeCheck"><input type="checkbox" id="useOffline" checked> Gunakan audio offline</label>
+      <div id="onlineOptions" class="modeOptions" hidden>
+        <label for="qari">Pilih qari online</label>
+        <select id="qari"><option value="ar.alafasy">Mishary Alafasy</option><option value="ar.husary">Mahmoud Khalil Al-Husary</option><option value="ar.minshawi">Al-Minshawi</option><option value="ar.abdurrahmaansudais">Abdurrahman As-Sudais</option></select>
+        <p class="tiny">Audio online membutuhkan koneksi internet dan kuota data.</p>
+      </div>
+    </div>
+  </details>
+  <div class="progress"><span id="progressBar"></span></div>
+  <div id="progressText" class="tiny">Progres hafalan tersimpan otomatis di browser perangkat ini.</div>
+  <div id="status">Memuat daftar surah…</div>
+</section>
+<section class="panel" id="audioPanel">
+  <details class="advanced">
+    <summary>Pengaturan audio offline & pengulangan</summary>
+    <div class="advancedContent">
+  <div id="offlineOptions">
+    <label for="audioFile">Unggah audio untuk mode offline</label>
+    <input id="audioFile" type="file" accept="audio/*">
+    <p class="tiny">Tidak menemukan qari favorit? Kamu bisa mengunggah rekaman murottal yang kamu miliki atau menggunakan suara sendiri untuk membantu hafalan dan murojaah. File disimpan di perangkat ini jika browser mendukungnya.</p>
+
+  </div>
+  <audio id="player" preload="auto" style="display:none"></audio>
+  <div class="row" style="margin-top:12px;align-items:center">
+    <div><label for="repeat">Pengulangan setiap ayat</label><select id="repeat"><option value="1">1×</option><option value="3" selected>3×</option><option value="5">5×</option><option value="10">10×</option><option value="20">20×</option><option value="infinity">∞ Tanpa batas</option></select></div>
+  </div>
+  <p class="tiny">Mode online langsung memulai audio ayat aktif. Setelah jumlah pengulangan selesai, aplikasi otomatis pindah ke ayat berikutnya. Pilihan ∞ mengulang ayat aktif tanpa batas sampai kamu pindah ayat.</p>
+    </div>
+  </details>
+</section>
+<div id="verses"></div>
+<section class="panel" style="padding:10px 12px;margin-top:8px;margin-bottom:8px">
+  <div class="verseNav" style="margin:0">
+    <button id="prevVerse" class="secondary">← Ayat sebelumnya</button>
+    <div id="verseCounter" class="verseCounter">Ayat 1 / —</div>
+    <button id="nextVerse">Ayat berikutnya →</button>
+  </div>
+  <div class="verseHint">Navigasi ayat tanpa perlu scroll melewati ayat lain.</div>
+</section>
+<footer>Ayat dan audio online memerlukan internet. Audio lokal dapat dipakai tanpa data setelah diunggah ke perangkat ini. Progres hafalan tersimpan otomatis di browser. Periksa bacaan dengan mushaf tepercaya dan guru/tutor; transliterasi hanya bantuan, bukan pengganti tajwid.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const surahSelect=$('surah'), juzSelect=$('juz'), statusBox=$('status'), versesBox=$('verses'), player=$('player');
+const STORE='hafalanForumDawai_v4', CACHE='hafalanForumDawai_cache_v1';
+let currentSurah=null, hideText=false, currentAudioUrl=null, loopLeft=0, loopStart=0, loopEnd=0, loopTimer=null, activeVerseIndex=0, currentSource='', playToken=0, isPlayingSequence=false;
+const juzRanges={1:[1,2],2:[2,2],3:[2,3],4:[3,4],5:[4,4],6:[4,5],7:[5,6],8:[6,7],9:[7,8],10:[8,9],11:[9,11],12:[11,12],13:[12,14],14:[15,16],15:[17,18],16:[18,20],17:[21,22],18:[23,25],19:[25,27],20:[27,29],21:[29,33],22:[33,36],23:[36,39],24:[39,41],25:[41,45],26:[46,51],27:[51,57],28:[58,66],29:[67,77],30:[78,114]};
+const juzAyahBounds={1:[[1,1],[2,141]],2:[[2,142],[2,252]],3:[[2,253],[3,92]],4:[[3,93],[4,23]],5:[[4,24],[4,147]],6:[[4,148],[5,81]],7:[[5,82],[6,110]],8:[[6,111],[7,87]],9:[[7,88],[8,40]],10:[[8,41],[9,92]],11:[[9,93],[11,5]],12:[[11,6],[12,52]],13:[[12,53],[14,52]],14:[[15,1],[16,128]],15:[[17,1],[18,74]],16:[[18,75],[20,135]],17:[[21,1],[22,78]],18:[[23,1],[25,20]],19:[[25,21],[27,55]],20:[[27,56],[29,45]],21:[[29,46],[33,30]],22:[[33,31],[36,27]],23:[[36,28],[39,31]],24:[[39,32],[41,46]],25:[[41,47],[45,37]],26:[[46,1],[51,30]],27:[[51,31],[57,29]],28:[[58,1],[66,12]],29:[[67,1],[77,50]],30:[[78,1],[114,6]]};
+const surahNames={1:'Al-Fatihah',2:'Al-Baqarah',3:'Ali Imran',4:'An-Nisa',5:'Al-Maidah',6:'Al-Anam',7:'Al-Araf',8:'Al-Anfal',9:'At-Taubah',10:'Yunus',11:'Hud',12:'Yusuf',13:'Ar-Rad',14:'Ibrahim',15:'Al-Hijr',16:'An-Nahl',17:'Al-Isra',18:'Al-Kahfi',19:'Maryam',20:'Taha',21:'Al-Anbiya',22:'Al-Hajj',23:'Al-Muminun',24:'An-Nur',25:'Al-Furqan',26:'Asy-Syuara',27:'An-Naml',28:'Al-Qasas',29:'Al-Ankabut',30:'Ar-Rum',31:'Luqman',32:'As-Sajdah',33:'Al-Ahzab',34:'Saba',35:'Fatir',36:'Yasin',37:'As-Saffat',38:'Sad',39:'Az-Zumar',40:'Ghafir',41:'Fussilat',42:'Asy-Syura',43:'Az-Zukhruf',44:'Ad-Dukhan',45:'Al-Jasiyah',46:'Al-Ahqaf',47:'Muhammad',48:'Al-Fath',49:'Al-Hujurat',50:'Qaf',51:'Az-Zariyat',52:'At-Tur',53:'An-Najm',54:'Al-Qamar',55:'Ar-Rahman',56:'Al-Waqiah',57:'Al-Hadid',58:'Al-Mujadilah',59:'Al-Hasyr',60:'Al-Mumtahanah',61:'As-Saff',62:'Al-Jumuah',63:'Al-Munafiqun',64:'At-Taghabun',65:'At-Talaq',66:'At-Tahrim',67:'Al-Mulk',68:'Al-Qalam',69:'Al-Haqqah',70:"Al-Ma'arij",71:'Nuh',72:'Al-Jinn',73:'Al-Muzzammil',74:'Al-Muddaththir',75:'Al-Qiyamah',76:'Al-Insan',77:'Al-Mursalat',78:"An-Naba'",79:"An-Nazi'at",80:'Abasa',81:'At-Takwir',82:'Al-Infitar',83:'Al-Mutaffifin',84:'Al-Insyiqaq',85:'Al-Buruj',86:'At-Tariq',87:'Al-Ala',88:'Al-Ghasyiyah',89:'Al-Fajr',90:'Al-Balad',91:'Asy-Syams',92:'Al-Lail',93:'Ad-Duha',94:'Asy-Syarh',95:'At-Tin',96:'Al-Alaq',97:'Al-Qadr',98:'Al-Bayyinah',99:'Az-Zalzalah',100:'Al-Adiyat',101:'Al-Qariah',102:'At-Takatsur',103:'Al-Asr',104:'Al-Humazah',105:'Al-Fil',106:'Quraisy',107:'Al-Maun',108:'Al-Kausar',109:'Al-Kafirun',110:'An-Nasr',111:'Al-Lahab',112:'Al-Ikhlas',113:'Al-Falaq',114:'An-Nas'};
+const ayahCounts=[7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
+const quranCache={};
+function readStore(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')}catch{return {}}}
+function writeStore(v){try{localStorage.setItem(STORE,JSON.stringify(v))}catch(e){statusBox.textContent='Penyimpanan browser penuh/tidak tersedia.'}}
+function key(s,a){return `${s}:${a}`}
+function clean(x){if(x==null)return '';if(typeof x==='string')return x.replace(/<[^>]*>/g,'').replace(/&nbsp;/g,' ').trim();if(typeof x==='object'){if(x.text)return clean(x.text);if(x.id)return clean(x.id);if(x.en)return clean(x.en);return ''}return String(x)}
+async function fetchJSON(url){const r=await fetch(url,{headers:{'Accept':'application/json'}});if(!r.ok)throw new Error(`${r.status} ${r.statusText}`);return r.json()}
+function unwrap(j){return j?.data?.data||j?.data||j?.result||j}
+function getNum(v,i){return v?.__inSurah??v?.number?.inSurah??v?.numberInSurah??v?.ayah_number??(typeof v?.number==='number'&&v.number<=286?v.number:null)??i+1}
+function normalizeSurahData(n,obj){if(!obj||!Array.isArray(obj.verses))return null;const expected=ayahCounts[n-1];if(obj.verses.length!==expected)return null;obj.verses=obj.verses.map((v,i)=>({...v,__inSurah:i+1}));return obj}
+function completeSurahData(n,obj){return !!obj&&Array.isArray(obj.verses)&&obj.verses.length===ayahCounts[n-1]}
+function arabOf(v){return clean(v?.arab||v?.text?.arab||v?.text_uthmani||v?.arabic||v?.text?.uthmani||v?.text)||'Teks Arab tidak tersedia'}
+function latinOf(v){let t=v?.transliteration; if(typeof t==='object') t=t.id||t.en||t.text; t=t||v?.text?.transliteration?.id||v?.text?.transliteration?.en||v?.latin||v?.latin_text||v?.transliteration_id; return clean(t)||'Transliterasi belum tersedia dari sumber ini'}
+function transOf(v){return clean(v?.translation?.id||v?.translation?.text||v?.translation||v?.translations?.id||v?.arti||v?.text?.translation?.id||v?.text?.translation)||'Terjemahan belum tersedia dari sumber ini'}
+function tafsirOf(v,mode){const t=v?.tafsir||v?.tafsirs||{};if(mode==='kemenagShort')return clean(t?.kemenag?.short||t?.kemenag?.ringkas||v?.tafsir_kemenag?.short||v?.tafsir_kemenag_ringkas);if(mode==='kemenagLong')return clean(t?.kemenag?.long||t?.kemenag?.tahlili||v?.tafsir_kemenag?.long||v?.tafsir_kemenag_tahlili);if(mode==='quraish')return clean(t?.quraish||t?.quraisy||t?.quraish_shihab||v?.tafsir_quraish||v?.tafsir_quraish_shihab);if(mode==='jalalayn')return clean(t?.jalalayn||t?.jalalain||v?.tafsir_jalalayn);return ''}
+function initJuzOptions(){juzSelect.innerHTML='';for(let n=1;n<=30;n++){const o=document.createElement('option');o.value=n;o.textContent=`Juz ${String(n).padStart(2,'0')}`;juzSelect.appendChild(o)}juzSelect.value='30'}
+async function loadList(){
+ const [a,b]=juzRanges[Number(juzSelect.value)]||[78,114];surahSelect.innerHTML='';for(let n=a;n<=b;n++){const o=document.createElement('option');o.value=n;o.textContent=`${n}. ${surahNames[n]||'Surah '+n}`;surahSelect.appendChild(o)}
+ surahSelect.value=String(a);await loadSurah();
+}
+async function enrichWithGading(n,result){
+ try{const gj=await fetchJSON(`https://api.quran.gading.dev/surah/${n}`);const gd=unwrap(gj),ga=gd?.verses||gd?.ayahs||[];if(ga.length&&result.verses?.length){result.verses=result.verses.map((v,i)=>{const g=ga[i]||{};const latin=latinOf(v);const merged={...v};if(!latin||latin.startsWith('Transliterasi belum tersedia')){merged.transliteration=merged.transliteration||g?.text?.transliteration||g?.transliteration;merged.text=merged.text||{};if(!merged.text.transliteration&&g?.text?.transliteration)merged.text.transliteration=g.text.transliteration;}if(!transOf(v)||transOf(v).startsWith('Terjemahan belum tersedia')){merged.translation=merged.translation||g?.translation||g?.text?.translation;}return merged})}}
+ catch(e){}return result;
+}
+async function getSurahData(n){
+ if(quranCache[n]&&completeSurahData(n,quranCache[n]))return quranCache[n];
+ delete quranCache[n];
+ const problems=[];
+ // Jangan menerima respons parsial (beberapa API hanya mengembalikan 10 ayat pertama).
+ try{
+  const j=await fetchJSON(`https://api.myquran.com/v3/quran/${n}`);
+  const d=unwrap(j);let arr=Array.isArray(d)?d:(d?.ayahs||d?.verses||d?.ayat||d?.data);
+  if(Array.isArray(arr)&&arr.length===ayahCounts[n-1]){
+   const meta=d?.surah||d?.meta||{};
+   let result=await enrichWithGading(n,{number:n,name:meta.name_latin||meta.name||surahNames[n],verses:arr,source:'MyQuran v3 + transliterasi cadangan'});
+   result=normalizeSurahData(n,result);
+   if(result){quranCache[n]=result;cacheText(n,result);return result}
+  }else problems.push(`MyQuran mengirim ${Array.isArray(arr)?arr.length:0}/${ayahCounts[n-1]} ayat`);
+ }catch(e){problems.push('MyQuran: '+e.message)}
+ try{
+  const j=await fetchJSON(`https://quran-api-id.vercel.app/surahs/${n}`);
+  let d=unwrap(j);let arr=d?.ayahs||d?.verses||d?.ayat||[];
+  if(!Array.isArray(arr)||arr.length!==ayahCounts[n-1]){
+   const k=await fetchJSON(`https://quran-api-id.vercel.app/surahs/${n}/ayahs`);
+   d=unwrap(k);arr=Array.isArray(d)?d:(d?.ayahs||d?.verses||d?.data||[]);
+  }
+  if(Array.isArray(arr)&&arr.length===ayahCounts[n-1]){
+   let result=await enrichWithGading(n,{number:n,name:d?.name_latin||d?.name||surahNames[n],verses:arr,source:'Quran API ID + transliterasi cadangan'});
+   result=normalizeSurahData(n,result);
+   if(result){quranCache[n]=result;cacheText(n,result);return result}
+  }else problems.push(`Quran API ID mengirim ${Array.isArray(arr)?arr.length:0}/${ayahCounts[n-1]} ayat`);
+ }catch(e){problems.push('Quran API ID: '+e.message)}
+ try{
+  const j=await fetchJSON(`https://api.quran.gading.dev/surah/${n}`);
+  const d=unwrap(j);const arr=d?.verses||d?.ayahs||[];
+  if(Array.isArray(arr)&&arr.length===ayahCounts[n-1]){
+   const result=normalizeSurahData(n,{number:n,name:d?.name?.transliteration?.id||surahNames[n],verses:arr,source:'Quran Gading'});
+   if(result){quranCache[n]=result;cacheText(n,result);return result}
+  }else problems.push(`Quran Gading mengirim ${Array.isArray(arr)?arr.length:0}/${ayahCounts[n-1]} ayat`);
+ }catch(e){problems.push('Gading: '+e.message)}
+ try{
+  const j=await fetchJSON(`https://api.alquran.cloud/v1/surah/${n}`);
+  const d=j?.data;const arr=d?.ayahs||[];
+  if(Array.isArray(arr)&&arr.length===ayahCounts[n-1]){
+   let result=await enrichWithGading(n,{number:n,name:d?.englishName||surahNames[n],verses:arr,source:'Al Quran Cloud + transliterasi cadangan'});
+   result=normalizeSurahData(n,result);
+   if(result){quranCache[n]=result;cacheText(n,result);return result}
+  }else problems.push(`Al Quran Cloud mengirim ${Array.isArray(arr)?arr.length:0}/${ayahCounts[n-1]} ayat`);
+ }catch(e){problems.push('Al Quran Cloud: '+e.message)}
+ // Gunakan cache hanya jika benar-benar berisi semua ayat surah.
+ const cached=readCache(n);
+ if(completeSurahData(n,cached)){const result=normalizeSurahData(n,cached);quranCache[n]=result;return result}
+ throw new Error(`Data surah belum lengkap. Seharusnya ${ayahCounts[n-1]} ayat. Sumber yang dicoba: ${problems.join(' | ')}. Periksa koneksi internet lalu tekan Muat surah lagi.`);
+}
+function cacheText(n,obj){try{if(!completeSurahData(n,obj))return;const all=JSON.parse(localStorage.getItem(CACHE)||'{}');all[n]=obj;localStorage.setItem(CACHE,JSON.stringify(all))}catch(e){}}
+function readCache(n){try{const all=JSON.parse(localStorage.getItem(CACHE)||'{}');const item=all[n];return completeSurahData(n,item)?normalizeSurahData(n,item):null}catch{return null}}
+function limitVersesToJuz(surahNum,fullData){const bounds=juzAyahBounds[Number(juzSelect.value)];if(!bounds)return fullData;const [[startSurah,startAyah],[endSurah,endAyah]]=bounds;if(surahNum<startSurah||surahNum>endSurah)return {...fullData,verses:[]};const verses=(fullData.verses||[]).filter((v,i)=>{const a=Number(getNum(v,i));if(surahNum===startSurah&&a<startAyah)return false;if(surahNum===endSurah&&a>endAyah)return false;return true});return {...fullData,verses}}
+async function loadSurah(){const n=Number(surahSelect.value);statusBox.textContent='Memuat ayat…';versesBox.innerHTML='';currentSurah=null;try{let full;try{full=await getSurahData(n)}catch(e){full=readCache(n);if(!full)throw e;statusBox.textContent='Memakai data teks tersimpan di browser. '+e.message}if(!completeSurahData(n,full))throw new Error(`Data API tidak lengkap (${full?.verses?.length||0}/${ayahCounts[n-1]} ayat). Coba muat ulang saat internet stabil.`);const data=limitVersesToJuz(n,normalizeSurahData(n,full));currentSurah={...data,number:n};const arr=data.verses||[];if(!arr.length)throw new Error('Tidak ada ayat pada surah ini untuk juz yang dipilih.');statusBox.textContent=`${data.name||surahNames[n]} · ${arr.length} ayat dalam Juz ${juzSelect.value} · sumber: ${data.source||'cache lokal'}`;arr.forEach((v,i)=>renderVerse(n,v,i,data.name||surahNames[n]));activeVerseIndex=0;showActiveVerse();updateProgress();renderCurrentText();}catch(e){statusBox.textContent='Ayat belum berhasil dimuat. '+e.message}}
+function renderVerse(s,v,i,title){
+ const num=getNum(v,i),st=readStore(),mem=st[key(s,num)]||{};
+ const previousCard=versesBox.querySelectorAll('.ayah')[i-1];
+ const previousEnd=previousCard?.querySelector('.end')?.value||'';
+ const defaultStart=i===0?1:previousEnd;
+ const card=document.createElement('article');card.className='ayah'+(hideText?' hiddenText':'');card.id=`ayah-${s}-${num}`;card.dataset.ayah=num;
+ card.innerHTML=`<div class="ayahhead"><span class="num"></span><label class="check"><input type="checkbox" ${mem.done?'checked':''}> Sudah hafal</label></div><div class="arabic" lang="ar" dir="rtl"></div><div class="translit"></div><button class="versePlay">▶ Play media</button><div class="translation"></div><div class="timegrid" ${$('useOffline').checked?'':'hidden'}><div><label>Mulai (detik)</label><input class="start" type="number" min="0" step="0.1" placeholder="mis. 1" value="${mem.start??defaultStart}"></div><div><label>Akhir (detik)</label><input class="end" type="number" min="0" step="0.1" placeholder="detik akhir ayat" value="${mem.end??''}"></div></div><div class="tiny timingNote" ${$('useOffline').checked?'':'hidden'}>Isi waktu akhir ayat ini. Waktu mulai ayat berikutnya otomatis mengikuti waktu akhir ayat sebelumnya.</div>`;
+ card.querySelector('.num').textContent=`${title} · Ayat ${num}`;card.querySelector('.arabic').textContent=arabOf(v);card.querySelector('.translit').textContent='Latin: '+latinOf(v);card.querySelector('.translation').dataset.translation=transOf(v);card.querySelector('.translation').textContent='Arti: '+transOf(v);
+ card.querySelector('input[type=checkbox]').addEventListener('change',()=>{const x=readStore(),k=key(s,num);x[k]={...(x[k]||{}),done:card.querySelector('input[type=checkbox]').checked};writeStore(x);updateProgress()});
+ card.querySelector('.versePlay').addEventListener('click',()=>{const cards=[...versesBox.querySelectorAll('.ayah')];activeVerseIndex=cards.indexOf(card);showActiveVerse();playActive()});
+ const startInput=card.querySelector('.start'),endInput=card.querySelector('.end');
+ function saveTimeInputs(){const x=readStore(),k=key(s,num),a=startInput.value===''?null:Number(startInput.value),b=endInput.value===''?null:Number(endInput.value);x[k]={...(x[k]||{}),start:a,end:b};writeStore(x)}
+ startInput.addEventListener('change',saveTimeInputs);
+ endInput.addEventListener('change',()=>{saveTimeInputs();const cards=[...versesBox.querySelectorAll('.ayah')],idx=cards.indexOf(card),next=cards[idx+1];if(next){const nextStart=next.querySelector('.start');if(nextStart){nextStart.value=endInput.value;const nx=readStore(),nextKey=key(s,next.dataset.ayah);nx[nextKey]={...(nx[nextKey]||{}),start:endInput.value===''?null:Number(endInput.value)};writeStore(nx)}}});
+ versesBox.appendChild(card)
+}
+function renderCurrentText(){if(!currentSurah)return;const mode=$('textMode').value;const arr=currentSurah.verses||[];arr.forEach((v,i)=>{const num=getNum(v,i),card=$(`ayah-${currentSurah.number}-${num}`);if(!card)return;const el=card.querySelector('.translation');let txt=mode==='translation'?transOf(v):tafsirOf(v,mode);el.textContent=(mode==='translation'?'Arti: ':'Tafsir: ')+(txt|| (mode==='translation'?'Terjemahan belum tersedia dari sumber ini.':'Tafsir pilihan ini tidak tersedia dari API yang sedang merespons; pilih sumber lain atau terjemahan Indonesia.'));el.style.whiteSpace='pre-wrap';});}
+function showActiveVerse(){const cards=[...versesBox.querySelectorAll('.ayah')];if(!cards.length){$('verseCounter').textContent='Ayat — / —';$('prevVerse').disabled=true;$('nextVerse').disabled=true;return}activeVerseIndex=Math.max(0,Math.min(activeVerseIndex,cards.length-1));cards.forEach((c,i)=>c.classList.toggle('active',i===activeVerseIndex));$('verseCounter').textContent=`${activeVerseIndex+1} / ${cards.length}`;$('prevVerse').disabled=activeVerseIndex===0;$('nextVerse').disabled=activeVerseIndex===cards.length-1;$('prevVerse').style.opacity=activeVerseIndex===0?'.5':'1';$('nextVerse').style.opacity=activeVerseIndex===cards.length-1?'.5':'1'}
+function updateProgress(){if(!currentSurah)return;const n=Number(surahSelect.value),arr=currentSurah.verses||[],st=readStore();let done=0;arr.forEach((v,i)=>{if(st[key(n,getNum(v,i))]?.done)done++});$('progressBar').style.width=(arr.length?done/arr.length*100:0)+'%';$('progressText').textContent=`Hafal ${done} dari ${arr.length} ayat (${arr.length?Math.round(done/arr.length*100):0}%). Progres tersimpan di browser perangkat ini.`}
+function repeatSetting(){return $('repeat').value==='infinity'?Infinity:Number($('repeat').value)||1}
+function stopPlayback(){playToken++;isPlayingSequence=false;clearInterval(loopTimer);loopTimer=null;player.pause()}
+function moveAndPlayNext(token){if(token!==playToken||!isPlayingSequence)return;const cards=[...versesBox.querySelectorAll('.ayah')];if(activeVerseIndex<cards.length-1){activeVerseIndex++;showActiveVerse();playActive(token)}else{isPlayingSequence=false;statusBox.textContent='Selesai sampai ayat terakhir.'}}
+function finishOnePlay(token){if(token!==playToken||!isPlayingSequence)return;if(loopLeft===Infinity){player.currentTime=loopStart;player.play().catch(()=>{});if(!$('useOnline').checked)startLocalMonitor(token);return}loopLeft--;if(loopLeft>0){if(!$('useOnline').checked)player.currentTime=loopStart;player.play().catch(()=>{});if(!$('useOnline').checked)startLocalMonitor(token);return}moveAndPlayNext(token)}
+function startLocalMonitor(token){clearInterval(loopTimer);loopTimer=setInterval(()=>{if(token!==playToken||!isPlayingSequence)return;if(player.currentTime>=loopEnd){clearInterval(loopTimer);loopTimer=null;finishOnePlay(token)}},50)}
+function playLocalClip(token){if(!localAudioUrl){statusBox.textContent='Unggah file tilawah/audio sendiri terlebih dahulu pada mode offline.';alert('Unggah file audio lokal terlebih dahulu.');isPlayingSequence=false;return}const card=versesBox.querySelectorAll('.ayah')[activeVerseIndex];if(!card)return;const a=card.querySelector('.start')?.value??'',b=card.querySelector('.end')?.value??'';if(a===''||b===''||!Number.isFinite(Number(a))||!Number.isFinite(Number(b))||Number(b)<=Number(a)){statusBox.textContent='Isi waktu mulai dan akhir ayat aktif.';alert('Isi waktu mulai dan akhir ayat aktif. Waktu mulai ayat pertama otomatis 1 detik.');isPlayingSequence=false;return}player.src=localAudioUrl;loopStart=Number(a);loopEnd=Number(b);loopLeft=repeatSetting();player.currentTime=loopStart;player.play().then(()=>{statusBox.textContent='Memutar audio offline…';startLocalMonitor(token)}).catch(()=>{statusBox.textContent='Audio lokal tidak dapat diputar. Coba unggah ulang file audio.';isPlayingSequence=false})}
+function globalAyah(s,a){const counts=[7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];let sum=0;for(let i=1;i<s;i++)sum+=counts[i-1]||0;return sum+a}
+async function playOnline(v,s,num,token){statusBox.textContent='Memuat audio online…';const edition=$('qari').value;const global=v?.number?.inQuran||v?.number_in_quran||v?.global_number||globalAyah(s,Number(num));const urls=[`https://api.alquran.cloud/v1/ayah/${global}/${edition}`,v?.audio_url,v?.audio?.primary].filter(Boolean);for(const url of urls){if(token!==playToken)return;try{if(url.includes('api.alquran.cloud')){const j=await fetchJSON(url);const audio=j?.data?.audio;if(!audio)continue;player.src=audio}else player.src=url;player.currentTime=0;loopStart=0;loopEnd=0;loopLeft=repeatSetting();await player.play();statusBox.textContent=`Audio online · ${$('qari').selectedOptions[0].textContent}`;return}catch(e){continue}}if(token===playToken){statusBox.textContent='Audio online tidak tersedia. Coba qari lain atau mode offline.';isPlayingSequence=false;alert('Audio online gagal dimuat. Periksa koneksi internet atau pilih qari lain.')}}
+async function playActive(existingToken){if(!currentSurah)return;const cards=[...versesBox.querySelectorAll('.ayah')],card=cards[activeVerseIndex];if(!card)return;let token=existingToken;if(token===undefined){stopPlayback();token=playToken;isPlayingSequence=true}const i=activeVerseIndex,v=(currentSurah.verses||[])[i],num=getNum(v,i);if($('useOnline').checked)await playOnline(v,Number(surahSelect.value),num,token);else playLocalClip(token)}
+player.addEventListener('ended',()=>{if(!isPlayingSequence)return;if($('useOnline').checked)finishOnePlay(playToken);else if(loopTimer){clearInterval(loopTimer);loopTimer=null;finishOnePlay(playToken)}});
+function setAudioMode(shouldPlay=false){const online=$('useOnline').checked,offline=$('useOffline').checked;$('onlineOptions').hidden=!online;$('offlineOptions').hidden=!offline;document.querySelectorAll('.timegrid,.timingNote').forEach(el=>el.hidden=!offline);document.querySelectorAll('.versePlay').forEach(el=>el.textContent=online?'▶ Play online':'▶ Play media offline');if(online&&$('useOffline').checked){$('useOffline').checked=false;$('offlineOptions').hidden=true;document.querySelectorAll('.timegrid,.timingNote').forEach(el=>el.hidden=true)}if(offline&&$('useOnline').checked){$('useOnline').checked=false;$('onlineOptions').hidden=true}if(!online&&!offline){$('useOffline').checked=true;$('offlineOptions').hidden=false;document.querySelectorAll('.timegrid,.timingNote').forEach(el=>el.hidden=false)}stopPlayback();if(shouldPlay&&online)playActive()}
+$('prevVerse').addEventListener('click',()=>{stopPlayback();if(activeVerseIndex>0){activeVerseIndex--;showActiveVerse()}});$('nextVerse').addEventListener('click',()=>{stopPlayback();const cards=versesBox.querySelectorAll('.ayah');if(activeVerseIndex<cards.length-1){activeVerseIndex++;showActiveVerse()}});
+$('juz').addEventListener('change',()=>{stopPlayback();loadList()});$('load').onclick=()=>{stopPlayback();loadSurah()};$('surah').addEventListener('change',()=>{stopPlayback();loadSurah()});$('textMode').addEventListener('change',renderCurrentText);$('showText').onclick=()=>{hideText=!hideText;document.querySelectorAll('.ayah').forEach(x=>x.classList.toggle('hiddenText',hideText));$('showText').textContent=hideText?'Tampilkan teks':'Sembunyikan teks'};$('useOnline').addEventListener('change',()=>{if($('useOnline').checked)$('useOffline').checked=false;setAudioMode($('useOnline').checked)});$('useOffline').addEventListener('change',()=>{if($('useOffline').checked)$('useOnline').checked=false;setAudioMode(false)});$('qari').addEventListener('change',()=>{if($('useOnline').checked)playActive()});$('repeat').addEventListener('change',()=>{});
+$('audioFile').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(localAudioUrl)URL.revokeObjectURL(localAudioUrl);localAudioUrl=URL.createObjectURL(f);currentSource='local';statusBox.textContent='Audio lokal siap: '+f.name;saveAudioBlob(f,f.name)});
+// Simpan audio lokal di IndexedDB jika didukung browser.
+const DB='forumDawaiAudioDB';function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window))return reject(new Error('IndexedDB tidak didukung'));const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>req.result.createObjectStore('audio');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+async function saveAudioBlob(blob,name){try{const db=await openDB();await new Promise((res,rej)=>{const tx=db.transaction('audio','readwrite');tx.objectStore('audio').put({blob,name},'current');tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close()}catch(e){}}
+async function restoreAudio(){try{const db=await openDB();const item=await new Promise((res,rej)=>{const r=db.transaction('audio').objectStore('audio').get('current');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});db.close();if(item?.blob){localAudioUrl=URL.createObjectURL(item.blob);statusBox.textContent='Audio lokal tersimpan tersedia: '+item.name}}catch(e){}}
+let localAudioUrl=null;initJuzOptions();$('useOffline').checked=true;$('useOnline').checked=false;setAudioMode(false);loadList().then(restoreAudio);
+</script>
+
+<style>
+.donation-box{margin:28px 0 18px;padding:18px 14px;border:1px solid #d6e3da;border-radius:16px;background:#f6faf7;text-align:center;color:#123f31}
+.donation-box h3{margin:0 0 7px;font-size:1.08rem;color:#123f31}
+.donation-box p{margin:0 0 13px;font-size:.9rem;line-height:1.5;color:#456457}
+.donation-link{display:inline-block;background:#14583f;color:#fff!important;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:999px;box-shadow:0 2px 5px #123f3120}
+.donation-note{display:block;margin-top:9px;font-size:.76rem;color:#60766b}
+</style>
+<footer class="donation-box">
+  <h3>🤲 Dukung Kegiatan Dakwah Forum Dawai</h3>
+  <p>Ingin ikut mendukung kegiatan dakwah? Donasi dapat diakses melalui tautan resmi Forum Dawai.</p>
+  <a class="donation-link" href="https://lynk.id/forumdawai" target="_blank" rel="noopener noreferrer">Donasi QRIS — Support, klik di sini</a>
+  <span class="donation-note">Terima kasih atas dukungan dan doa baiknya.</span>
+</footer>
+
+</body></html>
